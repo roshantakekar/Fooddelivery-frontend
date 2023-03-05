@@ -13,7 +13,7 @@ const ConfirmOrder = () => {
     useEffect(() => {
         try {
             const getConfirmOrder = async () => {
-                const confirmedOrderData = await axios.get(`${SERVER_HOST}/confirmOrder/${state.confirmId}`);
+                const confirmedOrderData = await axios.get(`${SERVER_HOST}/confirmOrder/getcurrentorder/${state.confirmId}`);
                 if (confirmedOrderData.status === 200) {
                     setConfirmOrder(true);
                     setOrderConfirmedData({ ...confirmedOrderData.data });
@@ -29,9 +29,12 @@ const ConfirmOrder = () => {
             console.log(e);
         }
 
+        
 
 
     }, [state.confirmId])
+
+    console.log("oddddddddddddddddd",orderConfirmedData);
 
 
 
@@ -44,8 +47,10 @@ const ConfirmOrder = () => {
                     <Grid container justifyContent={"center"} mt={5}>
                         <Grid item>
                             <Typography sx={{ 'fontWeight': 'bold' }} align="center" variant='h5'>Thank You!</Typography>
+                            {Object.keys(orderConfirmedData).length!== 0 && <>
                             <Typography sx={{ 'fontWeight': 'bold' }} >Your Order is Confirmed!! Order Id is {orderConfirmedData._id.substr(orderConfirmedData._id.length - 5)}</Typography>
                             <Typography sx={{ 'fontWeight': 'bold' }} align="center">Total Cost: <Typography component="span" sx={{ fontSize: '1.2rem' }}>&#x20b9;</Typography>&nbsp;{orderConfirmedData.totalPrice}</Typography>
+                            </>}
                         </Grid>
                     </Grid>
 

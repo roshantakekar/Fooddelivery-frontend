@@ -4,10 +4,11 @@ import FoodCard from './FoodCard'
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { SERVER_HOST } from '../constants';
+import GridLoader from './GridLoader';
 
 function Home() {
 
-    const [cardData, setCardData] = useState([""]);
+    const [cardData, setCardData] = useState([]);
 
     useEffect(() => {
         debugger;
@@ -31,14 +32,18 @@ function Home() {
 
             </Grid>
             <Grid container p={10} direction="row" spacing={5}>
-                {cardData && cardData.map((data,i) => {
+                {cardData.length>0?  cardData.map((data,i) => {
                     return (
+                        
                         <Grid item key={i}>
                             <FoodCard {...data}/>
                         </Grid>
+                         
                     )
-                })
+                }):<GridLoader/>
                 }
+
+            
 
 
 

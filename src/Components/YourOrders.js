@@ -1,18 +1,24 @@
 import { Grid, Typography, Paper, List, ListItem, ListItemAvatar, Avatar, ListItemText, Divider } from '@mui/material';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState,useContext } from 'react'
 import { SERVER_HOST } from '../constants';
 import axios from 'axios';
+import { LoggedInUserContext } from './Authenticator';
 
 
 
 const YourOrders = () => {
     const [yourOrders, setYourOrders] = useState([]);
+    const { userLoggedData } = useContext(LoggedInUserContext);
+    console.log("USERLOGGGEEED",userLoggedData);
+
+
+
 
     useEffect(() => {
         console.log("asdasd");
         const getYourOrders = async () => {
             debugger;
-            const YourOrders = await axios.get(`${SERVER_HOST}/confirmOrder`);
+            const YourOrders = await axios.get(`${SERVER_HOST}/confirmOrder/${userLoggedData.id}`);
             setYourOrders([...YourOrders.data]);
             console.log("yo", YourOrders)
             debugger;
